@@ -20,7 +20,7 @@ const entry = targets.reduce((entry, target) => {
 module.exports = {
   // モード値を production に設定すると最適化された状態で、
   // development に設定するとソースマップ有効でJSファイルが出力される
-  mode: 'production',
+  mode: 'development',
 
   context: packs,
   entry,
@@ -48,6 +48,12 @@ module.exports = {
         ]
       },
       {
+        // 対象となるファイルの拡張子
+        test: /\.(gif|png|jpg|eot|wof|woff|woff2|ttf|svg)$/,
+        // 画像をBase64として取り込む
+        loader: 'url-loader'
+      },
+      {
         test: /\.vue$/,
         use: [{
           loader: 'vue-loader',
@@ -72,6 +78,12 @@ module.exports = {
         ]
       },
     ]
+  },
+  resolve: {
+    // aliasを追加
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
   },
   devServer: {
     publicPath: '/packs/',

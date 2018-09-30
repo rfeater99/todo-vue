@@ -73,4 +73,16 @@ gem 'foreman'
 group :development do
   gem 'erb2haml'
   gem 'rack-proxy'
+
+  # coding rule...
+  gem 'rubocop', require: false
+  gem 'brakeman', require: false
+  gem 'bundler-audit'
+  gem 'rack-mini-profiler'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'bullet'
+
+  gem 'pry-byebug'
+  gem 'pry-rails'
 end

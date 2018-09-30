@@ -5,17 +5,24 @@
     %title TodoVue
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application'
+    = javascript_bundle_tag 'layouts/application'
   %body
-    %header
-      %nav
-        - if user_signed_in?
-          = link_to 'プロフィール変更', edit_user_registration_path
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete
-        - else
-          = link_to 'サインアップ', new_user_registration_path
-          = link_to 'ログイン', new_user_session_path
-    %p.notice= notice
-    %p.alert= alert
+    #application
+      %el-header
+        %el-menu{mode: :horizontal}
+          - if user_signed_in?
+            %el-menu-item{index: 1}
+              = link_to 'プロフィール変更', edit_user_registration_path
+            %el-menu-item{index: 2}
+              = link_to 'ログアウト', destroy_user_session_path, method: :delete
+          - else
+            %el-menu-item{index: 1}
+              = link_to 'サインアップ', new_user_registration_path
+            %el-menu-item{index: 2}
+              = link_to 'ログイン', new_user_session_path
+      - if notice
+        %el-alert{title: notice, type: :info, 'show-icon': true}
+      - if alert
+        %el-alert{title: alert, type: :error, 'show-icon': true}
     = yield
