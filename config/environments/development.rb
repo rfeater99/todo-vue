@@ -65,5 +65,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.middleware.use DevServerProxy, ssl_verify_none: true
-  config.dev_server_host = 'localhost:3035'
+  config.dev_server_host = 'webpack-dev-server:3035'
 end

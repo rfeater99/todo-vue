@@ -1,8 +1,11 @@
 version: '3'
 
 services:
-  database:
-    image: mysql:5.7.22
+  db:
+    build:
+      context: ./container/db
+      dockerfile: Dockerfile
+    tty: true
     ports:
       - "3306:3306"
     environment:
@@ -12,6 +15,54 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - db-data:/var/lib/mysql
+    networks: 
+      - db-network
+
+  webpack-dev-server:
+    build:
+      context: ./container/webpack-dev-server
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "3035:3035"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+    networks:
+      - asset-network
+    command: >
+      sh -c "yarn install; yarn run start"
+
+  app:
+    build:
+      context: ./container/app
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_HOST=db
+      - DB_PORT=3306
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+      - webpack-dev-server
+    networks: 
+      - db-network
+      - asset-network
+    command: >
+      sh -c "bundle install --path vendor/bundle
+      && rm tmp/pids/server.pid;
+      bundle exec rake db:migrate;
+      bundle exec rails s -b 0.0.0.0 -p 5000"
 
 volumes:
   db-data:
+
+networks:
+  db-network:
+  asset-network:

@@ -323,3 +323,28 @@
     ```ruby :Gemfile
     gem 'foreman'
     ```
+
+
+1. wsl dockerの設定
+    - volumeマウントできるように、`/etc/wsl.conf`に/c マウントするように設定する
+
+    ```sh
+    # Enable extra metadata options by default
+    [automount]
+    enabled = true
+    root = /
+    options = "metadata,umask=22,fmask=11"
+    mountFsTab = true
+    
+    # Enable DNS - even though these are turned on by default, we’ll specify here just to be explicit.
+    [network]
+    generateHosts = true
+    generateResolvConf = true
+    ```
+
+    - wslでvolume使うとrailsが起動しなかったので、`config/boot.rb`でbootsnapを無効にする。いろいろ気になってきたら`spring`を検討するかも
+    
+    ```ruby
+    - require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
+    + #require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
+    ```
