@@ -24,6 +24,10 @@ module.exports = {
 
   context: packs,
   entry,
+  externals: {
+    'vue': 'Vue',
+    'element-ui': 'ELEMENT',
+  },
   output: {
     filename: '[name]-[hash].js',
     chunkFilename: '[name].bundle-[hash].js',
@@ -94,5 +98,9 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*'
     }
+  },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 500
   }
 };

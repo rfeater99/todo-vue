@@ -12,4 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require vue/dist/vue
+//= require element-ui/lib/index
 //= require_tree .
