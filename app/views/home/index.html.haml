@@ -1,6 +1,10 @@
-= javascript_bundle_tag 'index'
+= javascript_bundle_tag 'el_base'
 
-%h1 Home#index
-%p Find me in app/views/home/index.html.erb
-%button{onClick: 'test()'}
-  test
+#el_base{style: 'height: 100%'}
+  %el-main{style: 'height: 100%'}
+    %h1 Home#index
+    %p Find me in app/views/home/index.html.erb
+    %el-button{onClick: 'test()', style: 'width:50%; height: 50%;', type: :primary}
+      test
+    %h1
+      abc

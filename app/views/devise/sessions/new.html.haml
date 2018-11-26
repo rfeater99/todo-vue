@@ -1,20 +1,21 @@
-= javascript_bundle_tag 'devise/sessions/new'
+= javascript_bundle_tag 'el_base'
 
-#devise_sessions_new
+#el_base
   %el-main
     %h2 Log in
-    = form_for(resource, as: resource_name, builder: ElFormBuilder, url: session_path(resource_name)) do |f|
-      .field
-        %el-form-item{label: :Email}
-          = f.el_input_field :email, type: :email, autofocus: true, autocomplete: 'email'
-      .field
-        %el-form-item{label: :Password}
-          = f.el_input_field :password, type: :password, autocomplete: 'current-password'
-      - if devise_mapping.rememberable?
+    %el-card
+      = form_for(resource, as: resource_name, builder: ElFormBuilder, url: session_path(resource_name)) do |f|
         .field
+          %el-form-item{label: :Email}
+            = f.el_input_field :email, type: :email, autofocus: true, autocomplete: 'email'
+        .field
+          %el-form-item{label: :Password}
+            = f.el_input_field :password, type: :password, autocomplete: 'current-password'
+        - if devise_mapping.rememberable?
+          .field
+            %el-form-item
+              = f.el_checkbox :remember_me, label: 'Remember me', border: :border
+        .actions
           %el-form-item
-            = f.el_checkbox :remember_me, label: 'Remember me', border: :border
-      .actions
-        %el-form-item
-          =f.el_submit 'Log in', type: :primary, round: :round
+            =f.el_submit 'Log in', type: :primary, round: :round
     = render "devise/shared/links"

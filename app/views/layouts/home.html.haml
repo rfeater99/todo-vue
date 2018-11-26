@@ -1,0 +1,17 @@
+!!!
+%html{style: 'height: 100%'}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title TodoVue
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application'
+    = javascript_bundle_tag 'layouts/application'
+  %body{style: 'height: 100%; margin: 0px'}
+    #application
+      - if notice
+        %el-alert{title: notice, type: :info, 'show-icon': true}
+      - if alert
+        %el-alert{title: alert, type: :error, 'show-icon': true}
+    = yield
